@@ -1,8 +1,9 @@
 const board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 let turn = 1;
+let canPlay = true;
 
 function playTurn(position) {
-    if (board[position] === 0) {
+    if (board[position] === 0 && canPlay) {
         board[position] = turn;
 
         if  (turn === 1) {
@@ -16,12 +17,15 @@ function playTurn(position) {
         const win = checkWin();
         if (win === 1) {
             console.log('player 1 wins!');
+            canPlay = false;
         }
         else if (win === 2) {
             console.log('player 2 wins!');
+            canPlay = false;
         }
         else if (win === 3) {
             console.log('tie!');
+            canPlay = false;
         }
     }
 
