@@ -1,12 +1,50 @@
+const table = document.querySelector('.table');
+
 const board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 let turn = 1;
 let canPlay = true;
+
+renderTableHtml();
+
+function renderTableHtml() 
+{
+    table.innerHTML = 
+    `
+                <div class="part">
+                    <div id="p0" class="spot">${board[0]}</div>
+                    <div id="p1" class="spot">${board[1]}</div>
+                    <div id="p2" class="spot">${board[2]}</div>
+                </div>
+                <div class="separator"></div>
+                <div class="part">
+                    <div id="p3" class="spot">${board[3]}</div>
+                    <div id="p4" class="spot">${board[4]}</div>
+                    <div id="p5" class="spot">${board[5]}</div>
+                </div>
+                <div class="separator"></div>
+                <div class="part">
+                    <div id="p6" class="spot">${board[6]}</div>
+                    <div id="p7" class="spot">${board[7]}</div>
+                    <div id="p8" class="spot">${board[8]}</div>
+                </div>
+    `;
+
+    
+    const spots = document.querySelectorAll('.spot');
+
+    spots.forEach((spot) => {
+        spot.addEventListener('click', () => {
+            playTurn(parseInt(spot.id.slice(1), 10));
+        });
+    })
+
+}
 
 function playTurn(position) {
     if (board[position] === 0 && canPlay) {
         board[position] = turn;
 
-        if  (turn === 1) {
+        if (turn === 1) {
             turn = 2;
         }
         else {
@@ -28,6 +66,8 @@ function playTurn(position) {
             canPlay = false;
         }
     }
+
+    renderTableHtml();
 
 }
 
