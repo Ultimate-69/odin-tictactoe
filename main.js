@@ -1,8 +1,13 @@
 const table = document.querySelector('.table');
+const restart = document.querySelector('.restart');
 
 const board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 let turn = 1;
 let canPlay = true;
+
+restart.addEventListener('click', () => {
+    location.reload();
+})
 
 renderTableHtml();
 
@@ -36,6 +41,15 @@ function renderTableHtml()
         spot.addEventListener('click', () => {
             playTurn(parseInt(spot.id.slice(1), 10));
         });
+        if (spot.innerHTML === "0") {
+            spot.innerHTML = ""
+        }
+        else if (spot.innerHTML === "1") {
+            spot.innerHTML = "X"
+        }
+        else if (spot.innerHTML === "2") {
+            spot.innerHTML = "O"
+        }
     })
 
 }
@@ -54,21 +68,23 @@ function playTurn(position) {
         console.log(board);
         const win = checkWin();
         if (win === 1) {
-            console.log('player 1 wins!');
+            const result = document.querySelector('.result');
+            result.innerHTML = "Player 1 wins!"
             canPlay = false;
         }
         else if (win === 2) {
-            console.log('player 2 wins!');
+            const result = document.querySelector('.result');
+            result.innerHTML = "Player 2 wins!"
             canPlay = false;
         }
         else if (win === 3) {
-            console.log('tie!');
+            const result = document.querySelector('.result');
+            result.innerHTML = "Tie!"
             canPlay = false;
         }
     }
 
     renderTableHtml();
-
 }
 
 function checkWin() {
